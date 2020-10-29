@@ -26,7 +26,7 @@ var (
 	namespace     = flag.String("namespace", "rethinkdb", "Namespace for metrics")
 	listenAddress = flag.String("web.listen-address", ":9123", "Address to listen on for web interface and telemetry.")
 	metricPath    = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
-	envPass 			= flag.String("env.pass", "", "Environment variable holding password")
+	envPass       = flag.String("env.pass", "", "Environment variable holding password")
 )
 
 type Exporter struct {
