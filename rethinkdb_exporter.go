@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"os"
 
 	r "github.com/GoRethink/gorethink"
 	"github.com/prometheus/client_golang/prometheus"
@@ -25,6 +26,7 @@ var (
 	namespace     = flag.String("namespace", "rethinkdb", "Namespace for metrics")
 	listenAddress = flag.String("web.listen-address", ":9123", "Address to listen on for web interface and telemetry.")
 	metricPath    = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
+	envPass 			= flag.String("env.pass", "", "Environment variable holding password")
 )
 
 type Exporter struct {
@@ -349,6 +351,10 @@ func main() {
 
 	if len(*addr) == 0 {
 		log.Fatal("need parameter addr with len > 0 to connect to RethinkDB cluster")
+	}
+
+	if len(*envPass) != 0 {
+		*pass = os.Getenv(*envPass)
 	}
 
 	exporter := NewRethinkDBExporter(*addr, *auth, *user, *pass, *clusterName, *namespace)
