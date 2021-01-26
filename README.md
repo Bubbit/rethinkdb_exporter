@@ -56,6 +56,9 @@ clustername        | Name of the cluster, if set it's added as a label to the me
 namespace          | Namespace for the metrics, defaults to "rethinkdb".
 web.listen-address | Address to listen on for web interface and telemetry, default `:9123`
 web.telemetry-path | Path under which to expose metrics.
+env.pass           | Environment variable holding password.
+tls.cert           | Certificate file for tls setup.
+tls.key            | Key file for tls setup.
 
 
 ### What's exported?
