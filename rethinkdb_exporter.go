@@ -27,6 +27,8 @@ var (
 	listenAddress = flag.String("web.listen-address", ":9123", "Address to listen on for web interface and telemetry.")
 	metricPath    = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
 	envPass       = flag.String("env.pass", "", "Environment variable holding password")
+	tlsCertFile   = flag.String("tls.cert", "", "Certificate file for tls setup")
+	tlsKeyFile    = flag.String("tls.key", "", "Key file for tls setup")
 )
 
 type Exporter struct {
@@ -372,6 +374,11 @@ func main() {
 `))
 	})
 
-	log.Printf("listening at %s", *listenAddress)
-	log.Fatal(http.ListenAndServe(*listenAddress, nil))
+	if len(*tlsCertFile) != 0 && len(*tlsKeyFile) != 0) {
+		log.Printf("listening at with https @ %s", *listenAddress)
+		log.Fatal(http.ListenAndServeTLS(*listenAddress, *tlsCertFile, *tlsKeyFile, nil))
+	} else {
+		log.Printf("listening at with http @ %s", *listenAddress)
+		log.Fatal(http.ListenAndServe(*listenAddress, nil))
+	}
 }
