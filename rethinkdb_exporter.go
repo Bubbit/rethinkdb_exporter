@@ -374,7 +374,7 @@ func main() {
 `))
 	})
 
-	if len(*tlsCertFile) != 0 && len(*tlsKeyFile) != 0) {
+	if len(*tlsCertFile) != 0 && len(*tlsKeyFile) != 0 {
 		log.Printf("listening at with https @ %s", *listenAddress)
 		log.Fatal(http.ListenAndServeTLS(*listenAddress, *tlsCertFile, *tlsKeyFile, nil))
 	} else {
